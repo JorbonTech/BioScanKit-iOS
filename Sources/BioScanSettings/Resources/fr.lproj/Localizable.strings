@@ -86,3 +86,23 @@
 "Waiting for a network connection" = "En attente d’une connexion réseau";
 "iCloud storage is full" = "Le stockage iCloud est plein";
 "iCloud sync needs attention" = "La synchronisation iCloud nécessite votre attention";
+
+/* Related tools panel */
+"related.eyebrow" = "OUTILS LIÉS";
+"related.lowConfidence.eyebrowFormat" = "CONFIANCE FAIBLE · %@";
+"related.lowConfidence.title" = "Cette photo ne suffit pas à confirmer l'espèce.";
+"related.lowConfidence.detail" = "Cette app retient son verdict de sécurité tant que l'espèce n'est pas confirmée. Tout ce qui suit est une hypothèse.";
+"related.retake.action" = "Reprendre la photo";
+"related.retake.detail" = "Plus près, un seul sujet, lumière uniforme";
+"related.mushroom.action" = "Vérifier dans un guide des champignons";
+"related.mushroom.detail" = "Mr.Mushroom · guide hors ligne";
+"related.natureear.action" = "Identifier par le son";
+"related.natureear.detail" = "NatureEar · reconnaissance audio hors ligne";
+"related.mrbird.action" = "Parcourir un guide dédié aux oiseaux";
+"related.mrbird.detail" = "Mr.Bird · photo et chant";
+"related.fish.action" = "Comparer avec un guide des poissons";
+"related.fish.detail" = "Mr.Fish · photo et guide";
+"related.mrrock.action" = "C'est peut-être une roche";
+"related.mrrock.detail" = "MrRock · identification de roches";
+"related.inature.action" = "Identifier toute la scène";
+"related.inature.detail" = "iNature · plantes, insectes et faune";

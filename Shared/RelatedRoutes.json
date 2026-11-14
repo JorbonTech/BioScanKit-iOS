@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "routes": {
+    "inature": [
+      {
+        "trigger": "taxon",
+        "match": ["fungi"],
+        "apps": [
+          { "id": "mushroom", "action_key": "related.mushroom.action", "detail_key": "related.mushroom.detail" }
+        ]
+      },
+      {
+        "trigger": "taxon",
+        "match": ["birds"],
+        "apps": [
+          { "id": "natureear", "action_key": "related.natureear.action", "detail_key": "related.natureear.detail" },
+          { "id": "mrbird", "action_key": "related.mrbird.action", "detail_key": "related.mrbird.detail" }
+        ]
+      },
+      {
+        "trigger": "taxon",
+        "match": ["fish"],
+        "apps": [
+          { "id": "fish", "action_key": "related.fish.action", "detail_key": "related.fish.detail" }
+        ]
+      },
+      {
+        "trigger": "context",
+        "match": ["other"],
+        "max_confidence": 0.5,
+        "apps": [
+          { "id": "mrrock", "action_key": "related.mrrock.action", "detail_key": "related.mrrock.detail" }
+        ]
+      }
+    ],
+    "mrbird": [
+      {
+        "trigger": "taxon",
+        "match": ["birds"],
+        "apps": [
+          { "id": "natureear", "action_key": "related.natureear.action", "detail_key": "related.natureear.detail" },
+          { "id": "inature", "action_key": "related.inature.action", "detail_key": "related.inature.detail" }
+        ]
+      }
+    ],
+    "fish": [
+      {
+        "trigger": "taxon",
+        "match": ["fish"],
+        "apps": [
+          { "id": "inature", "action_key": "related.inature.action", "detail_key": "related.inature.detail" }
+        ]
+      }
+    ],
+    "mushroom": [
+      {
+        "trigger": "taxon",
+        "match": ["fungi"],
+        "apps": [
+          { "id": "inature", "action_key": "related.inature.action", "detail_key": "related.inature.detail" }
+        ]
+      }
+    ],
+    "mrrock": [
+      {
+        "trigger": "taxon",
+        "match": ["mineral"],
+        "apps": [
+          { "id": "inature", "action_key": "related.inature.action", "detail_key": "related.inature.detail" }
+        ]
+      }
+    ],
+    "natureear": [
+      {
+        "trigger": "taxon",
+        "match": ["birds"],
+        "apps": [
+          { "id": "mrbird", "action_key": "related.mrbird.action", "detail_key": "related.mrbird.detail" },
+          { "id": "inature", "action_key": "related.inature.action", "detail_key": "related.inature.detail" }
+        ]
+      }
+    ]
+  }
+}

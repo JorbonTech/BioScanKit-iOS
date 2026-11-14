@@ -86,3 +86,23 @@
 "Waiting for a network connection" = "正在等待网络连接";
 "iCloud storage is full" = "iCloud 存储空间已满";
 "iCloud sync needs attention" = "iCloud 同步需要处理";
+
+/* Related tools panel */
+"related.eyebrow" = "相关工具";
+"related.lowConfidence.eyebrowFormat" = "置信度偏低 · %@";
+"related.lowConfidence.title" = "这张照片不足以确认物种。";
+"related.lowConfidence.detail" = "在物种被确认之前，本 app 暂不给出安全结论。以下内容都只是猜测。";
+"related.retake.action" = "重新拍摄";
+"related.retake.detail" = "靠近一点、只放一个主体、光线均匀";
+"related.mushroom.action" = "在蘑菇图鉴里核对";
+"related.mushroom.detail" = "Mr.Mushroom · 离线图鉴";
+"related.natureear.action" = "改用声音识别";
+"related.natureear.detail" = "NatureEar · 离线声音识别";
+"related.mrbird.action" = "翻阅鸟类专属图鉴";
+"related.mrbird.detail" = "Mr.Bird · 照片识别与鸣声";
+"related.fish.action" = "对照鱼类图鉴";
+"related.fish.detail" = "Mr.Fish · 照片识别与图鉴";
+"related.mrrock.action" = "这可能是一块石头";
+"related.mrrock.detail" = "MrRock · 石头与矿物识别";
+"related.inature.action" = "识别整个场景";
+"related.inature.detail" = "iNature · 植物、昆虫与野生动物";

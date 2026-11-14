@@ -86,3 +86,23 @@
 "Waiting for a network connection" = "ネットワーク接続を待っています";
 "iCloud storage is full" = "iCloud ストレージがいっぱいです";
 "iCloud sync needs attention" = "iCloud 同期を確認してください";
+
+/* Related tools panel */
+"related.eyebrow" = "関連ツール";
+"related.lowConfidence.eyebrowFormat" = "信頼度が低い · %@";
+"related.lowConfidence.title" = "この写真では種を確定できません。";
+"related.lowConfidence.detail" = "種が確定するまで、このアプリは安全性の判断を示しません。以下の内容は推測です。";
+"related.retake.action" = "撮り直す";
+"related.retake.detail" = "近づいて、被写体をひとつに、均一な光で";
+"related.mushroom.action" = "きのこ図鑑で照合する";
+"related.mushroom.detail" = "Mr.Mushroom · オフライン図鑑";
+"related.natureear.action" = "音声で識別する";
+"related.natureear.detail" = "NatureEar · オフライン音声識別";
+"related.mrbird.action" = "鳥専用の図鑑を見る";
+"related.mrbird.detail" = "Mr.Bird · 写真識別とさえずり";
+"related.fish.action" = "魚の図鑑と照合する";
+"related.fish.detail" = "Mr.Fish · 写真識別と図鑑";
+"related.mrrock.action" = "石や鉱物かもしれません";
+"related.mrrock.detail" = "MrRock · 石・鉱物の識別";
+"related.inature.action" = "風景ごと識別する";
+"related.inature.detail" = "iNature · 植物・昆虫・野生動物";

@@ -86,3 +86,23 @@
 "Waiting for a network connection" = "Waiting for a network connection";
 "iCloud storage is full" = "iCloud storage is full";
 "iCloud sync needs attention" = "iCloud sync needs attention";
+
+/* Related tools panel */
+"related.eyebrow" = "RELATED TOOLS";
+"related.lowConfidence.eyebrowFormat" = "LOW CONFIDENCE · %@";
+"related.lowConfidence.title" = "This photo is not clear enough to confirm the species.";
+"related.lowConfidence.detail" = "This app withholds its safety verdict until the identification is confirmed. Everything below is a best guess.";
+"related.retake.action" = "Retake the photo";
+"related.retake.detail" = "Closer, one subject, even light";
+"related.mushroom.action" = "Cross-check in a mushroom guide";
+"related.mushroom.detail" = "Mr.Mushroom · offline field guide";
+"related.natureear.action" = "Identify by sound instead";
+"related.natureear.detail" = "NatureEar · offline sound ID";
+"related.mrbird.action" = "Browse a bird-only field guide";
+"related.mrbird.detail" = "Mr.Bird · photo ID and song notes";
+"related.fish.action" = "Check it against a fish guide";
+"related.fish.detail" = "Mr.Fish · photo ID and field guide";
+"related.mrrock.action" = "It might be a rock or mineral";
+"related.mrrock.detail" = "MrRock · stone and mineral ID";
+"related.inature.action" = "Identify the whole scene";
+"related.inature.detail" = "iNature · plants, insects and wildlife";

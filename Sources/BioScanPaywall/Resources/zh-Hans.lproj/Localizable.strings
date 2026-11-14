@@ -72,3 +72,7 @@
 "Your offline scanner" = "你的离线扫描器";
 "per ID" = "每次识别";
 "per scan" = "每次扫描";
+
+/* Pending StoreKit purchases are neither cancelled nor failed. */
+"Waiting for Approval" = "等待批准";
+"Your purchase is awaiting approval. Access will unlock automatically after approval." = "购买正在等待批准。批准后将自动解锁。";

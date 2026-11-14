@@ -45,7 +45,23 @@ final class PaywallStoreTests: XCTestCase {
         XCTAssertEqual(store.notice?.title, "Purchase Failed")
     }
 
-    private func makeStore(transactionID: String?) -> PaywallStore {
+    func testPendingPurchaseDoesNotDeliverCreditsOrShowFailure() async {
+        var events: [PaywallEvent] = []
+        let store = makeStore(transactionID: nil, pending: true, track: { events.append($0) })
+        await store.load()
+        await store.purchaseSelectedProduct()
+        XCTAssertEqual(store.creditBalance.paid, 0)
+        XCTAssertEqual(store.operation, .idle)
+        XCTAssertEqual(store.notice?.title, "Waiting for Approval")
+        XCTAssertTrue(events.contains(.purchaseBlocked(reason: "payment_pending")))
+        XCTAssertFalse(events.contains { if case .purchaseFailed = $0 { return true }; return false })
+        XCTAssertFalse(store.recoveryCoordinator?.isOfferPresented ?? false)
+    }
+
+    private func makeStore(
+        transactionID: String?, pending: Bool = false,
+        track: @escaping @MainActor (PaywallEvent) -> Void = { _ in }
+    ) -> PaywallStore {
         let product = PaywallProduct(
             id: "credits-5",
             kind: .credits(5),
@@ -57,7 +73,8 @@ final class PaywallStoreTests: XCTestCase {
                 [BillingProduct(id: product.id, localizedPrice: "$0.99", price: 0.99)]
             },
             purchase: { _ in
-                PurchaseResult(
+                if pending { throw PurchasePendingError() }
+                return PurchaseResult(
                     wasCancelled: false,
                     transactionID: transactionID,
                     entitlement: .standard
@@ -89,7 +106,7 @@ final class PaywallStoreTests: XCTestCase {
             ),
             billingClient: client,
             creditLedger: ledger,
-            actions: PaywallActions(dismiss: {})
+            actions: PaywallActions(dismiss: {}, track: track)
         )
     }
 }

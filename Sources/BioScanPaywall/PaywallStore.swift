@@ -122,6 +122,7 @@ public final class PaywallStore: ObservableObject {
     }
 
     public func purchaseSelectedProduct() async {
+        guard !isBusy else { return }
         guard let product = selectedProduct else {
             actions.track(.purchaseBlocked(reason: "no_product_selected"))
             return
@@ -174,6 +175,14 @@ public final class PaywallStore: ObservableObject {
 
             operation = .succeeded
             actions.track(.purchaseSucceeded(product.id))
+        } catch is PurchasePendingError {
+            operation = .idle
+            notice = PaywallNotice(
+                title: "Waiting for Approval",
+                message: "Your purchase is awaiting approval. Access will unlock automatically after approval."
+            )
+            // 使用既有事件携带明确原因，保持其他应用的 exhaustive switch 源码兼容。
+            actions.track(.purchaseBlocked(reason: "payment_pending"))
         } catch {
             operation = .idle
             notice = PaywallNotice(

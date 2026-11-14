@@ -1,5 +1,10 @@
 import Foundation
 
+/// 系统已接收交易但尚待批准；不属于失败或用户取消。
+public struct PurchasePendingError: Error, Sendable {
+    public init() {}
+}
+
 @MainActor
 public protocol BillingClient: AnyObject {
     func loadProducts(identifiers: [String]) async throws -> [BillingProduct]

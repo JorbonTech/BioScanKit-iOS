@@ -72,3 +72,7 @@
 "Your offline scanner" = "オフラインスキャナー";
 "per ID" = "識別1回あたり";
 "per scan" = "スキャン1回あたり";
+
+/* Pending StoreKit purchases are neither cancelled nor failed. */
+"Waiting for Approval" = "承認待ち";
+"Your purchase is awaiting approval. Access will unlock automatically after approval." = "購入は承認待ちです。承認されると自動的に利用可能になります。";

@@ -72,3 +72,7 @@
 "Your offline scanner" = "Jouw offline scanner";
 "per ID" = "per identificatie";
 "per scan" = "per scan";
+
+/* Pending StoreKit purchases are neither cancelled nor failed. */
+"Waiting for Approval" = "Wachten op goedkeuring";
+"Your purchase is awaiting approval. Access will unlock automatically after approval." = "Je aankoop wacht op goedkeuring. Na goedkeuring wordt de toegang automatisch ontgrendeld.";

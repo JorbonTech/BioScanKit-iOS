@@ -72,3 +72,7 @@
 "Your offline scanner" = "Dein Offline-Scanner";
 "per ID" = "pro Identifizierung";
 "per scan" = "pro Scan";
+
+/* Pending StoreKit purchases are neither cancelled nor failed. */
+"Waiting for Approval" = "Warten auf Genehmigung";
+"Your purchase is awaiting approval. Access will unlock automatically after approval." = "Dein Kauf wartet auf Genehmigung. Nach der Genehmigung wird der Zugang automatisch freigeschaltet.";

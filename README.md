@@ -16,12 +16,12 @@ Host apps own recognition engines, navigation, analytics, credentials, product i
 ## CocoaPods integration
 
 ```ruby
-pod 'BioScanDesign', :git => 'https://github.com/benzhipeng/BioScanKit-iOS.git', :tag => '0.1.9'
-pod 'BioScanCloudSync', :git => 'https://github.com/benzhipeng/BioScanKit-iOS.git', :tag => '0.1.9'
-pod 'BioScanSettings', :git => 'https://github.com/benzhipeng/BioScanKit-iOS.git', :tag => '0.1.9'
-pod 'BioScanCapture', :git => 'https://github.com/benzhipeng/BioScanKit-iOS.git', :tag => '0.1.9'
-pod 'BioScanPaywall', :git => 'https://github.com/benzhipeng/BioScanKit-iOS.git', :tag => '0.1.9'
-pod 'BioScanAnalytics', :git => 'https://github.com/benzhipeng/BioScanKit-iOS.git', :tag => '0.1.9'
+pod 'BioScanDesign', :git => 'https://github.com/JorbonTech/BioScanKit-iOS.git', :tag => '0.1.10'
+pod 'BioScanCloudSync', :git => 'https://github.com/JorbonTech/BioScanKit-iOS.git', :tag => '0.1.10'
+pod 'BioScanSettings', :git => 'https://github.com/JorbonTech/BioScanKit-iOS.git', :tag => '0.1.10'
+pod 'BioScanCapture', :git => 'https://github.com/JorbonTech/BioScanKit-iOS.git', :tag => '0.1.10'
+pod 'BioScanPaywall', :git => 'https://github.com/JorbonTech/BioScanKit-iOS.git', :tag => '0.1.10'
+pod 'BioScanAnalytics', :git => 'https://github.com/JorbonTech/BioScanKit-iOS.git', :tag => '0.1.10'
 ```
 
 Declare only the modules needed by the host app, then run `pod install` and open the generated workspace.

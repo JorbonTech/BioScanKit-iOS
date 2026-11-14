@@ -58,8 +58,21 @@ final class PaywallStoreTests: XCTestCase {
         XCTAssertFalse(store.recoveryCoordinator?.isOfferPresented ?? false)
     }
 
+    func testPurchaseFailurePreservesSystemErrorAndClearsOnNextAttempt() async {
+        var failures: [NSError] = []
+        let store = makeStore(transactionID: "retry", failure: NSError(domain: NSURLErrorDomain, code: -1009), track: { _ in })
+        await store.load()
+        await store.purchaseSelectedProduct()
+        if let error = store.lastPurchaseError { failures.append(error) }
+        XCTAssertEqual(failures.first?.domain, NSURLErrorDomain)
+        XCTAssertEqual(failures.first?.code, -1009)
+        await store.purchaseSelectedProduct()
+        XCTAssertNil(store.lastPurchaseError)
+        XCTAssertEqual(store.creditBalance.paid, 5)
+    }
+
     private func makeStore(
-        transactionID: String?, pending: Bool = false,
+        transactionID: String?, pending: Bool = false, failure: NSError? = nil,
         track: @escaping @MainActor (PaywallEvent) -> Void = { _ in }
     ) -> PaywallStore {
         let product = PaywallProduct(
@@ -68,11 +81,16 @@ final class PaywallStoreTests: XCTestCase {
             title: "Five credits",
             subtitle: "Five identifications"
         )
+        var nextFailure = failure
         let client = ClosureBillingClient(
             loadProducts: { _ in
                 [BillingProduct(id: product.id, localizedPrice: "$0.99", price: 0.99)]
             },
             purchase: { _ in
+                if let error = nextFailure {
+                    nextFailure = nil
+                    throw error
+                }
                 if pending { throw PurchasePendingError() }
                 return PurchaseResult(
                     wasCancelled: false,

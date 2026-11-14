@@ -17,6 +17,8 @@ public final class PaywallStore: ObservableObject {
     @Published public private(set) var operation: BillingOperation = .idle
     @Published public private(set) var notice: PaywallNotice?
     @Published public var selectedProductID: String?
+    /// 供事件桥接读取系统错误码，不改变现有 PaywallEvent 的关联值接口。
+    public private(set) var lastPurchaseError: NSError?
 
     public let configuration: PaywallConfiguration
     public let recoveryCoordinator: PurchaseRecoveryCoordinator?
@@ -122,6 +124,7 @@ public final class PaywallStore: ObservableObject {
     }
 
     public func purchaseSelectedProduct() async {
+        lastPurchaseError = nil
         guard !isBusy else { return }
         guard let product = selectedProduct else {
             actions.track(.purchaseBlocked(reason: "no_product_selected"))
@@ -184,6 +187,7 @@ public final class PaywallStore: ObservableObject {
             // 使用既有事件携带明确原因，保持其他应用的 exhaustive switch 源码兼容。
             actions.track(.purchaseBlocked(reason: "payment_pending"))
         } catch {
+            lastPurchaseError = error as NSError
             operation = .idle
             notice = PaywallNotice(
                 title: "Purchase Failed",

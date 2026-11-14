@@ -104,14 +104,26 @@ public enum BioScanAnalytics {
         #else
         let isSimulator = false
         #endif
-        analyticsDisabled = configuration.debug || isSimulator || isPreview || isAutomatedTest
+        // 仅显式启动的 Debug 真机验收允许上报，批次用于隔离测试数据。
+        #if DEBUG
+        let validationBatch = processInfo.environment["BIOSCAN_ANALYTICS_VALIDATION_BATCH"]?
+            .trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        #else
+        let validationBatch = ""
+        #endif
+        let isValidation = configuration.debug && !validationBatch.isEmpty
+            && !isSimulator && !isPreview && !isAutomatedTest
+        analyticsDisabled = (configuration.debug && !isValidation) || isSimulator || isPreview || isAutomatedTest
 
         let config = PostHogConfig(projectToken: configuration.projectToken, host: configuration.host)
         config.debug = configuration.debug
         config.captureApplicationLifecycleEvents = !analyticsDisabled
         config.captureScreenViews = !analyticsDisabled && configuration.capturesAutomaticScreenViews
         config.captureElementInteractions = false
-        let sessionReplayEnabled = configuration.sessionReplayEnabled && !analyticsDisabled
+        #if !os(watchOS) && !os(visionOS)
+        config.errorTrackingConfig.autoCapture = !analyticsDisabled
+        #endif
+        let sessionReplayEnabled = configuration.sessionReplayEnabled && !analyticsDisabled && !isValidation
         config.sessionReplay = sessionReplayEnabled
         if sessionReplayEnabled {
             config.sessionReplayConfig.screenshotMode = true
@@ -120,7 +132,7 @@ public enum BioScanAnalytics {
             config.sessionReplayConfig.maskAllSandboxedViews = false
         }
 
-        let protectedProperties: [String: Any] = [
+        var protectedProperties: [String: Any] = [
             "app_id": configuration.appID,
             "app_name": configuration.appName,
             "bundle_id": Bundle.main.bundleIdentifier ?? "unknown",
@@ -130,8 +142,14 @@ public enum BioScanAnalytics {
             "device_locale": Locale.current.identifier
         ]
 
+        if isValidation {
+            protectedProperties["environment"] = "debug"
+            protectedProperties["validation_batch"] = validationBatch
+            protectedProperties["is_test_event"] = true
+        }
+        let eventProperties = protectedProperties
         config.setBeforeSend { event in
-            for (key, value) in protectedProperties {
+            for (key, value) in eventProperties {
                 event.properties[key] = value
             }
             if event.properties["platform"] == nil {
@@ -155,6 +173,9 @@ public enum BioScanAnalytics {
         guard !eventName.isEmpty, !analyticsDisabled else { return }
         let canonicalName = canonicalEventName(eventName)
         var normalizedProperties = properties
+        if eventName == "favorite_add" || eventName == "favorite_remove" {
+            normalizedProperties["is_favorite"] = eventName == "favorite_add"
+        }
         let isPaywallFunnelEvent = canonicalName.hasPrefix("paywall_")
             || canonicalName == "product_selected"
             || canonicalName.hasPrefix("purchase_")
@@ -178,6 +199,10 @@ public enum BioScanAnalytics {
         }
         guard let properties = sanitize(normalizedProperties, eventName: canonicalName) else { return }
         PostHogSDK.shared.capture(canonicalName, properties: properties)
+        if eventName == "sound_listen_start" {
+            PostHogSDK.shared.capture(BioScanBehaviorEvent.recognitionEntrySelected,
+                                      properties: properties.merging(["recognition_mode": "sound"]) { _, new in new })
+        }
         let remainingScans = (properties["remaining_scans"] as? NSNumber)?.intValue
         let hasQuotaBlockReason = properties["reason"] as? String == "no_credits"
             || properties["error_type"] as? String == "quota"
@@ -193,8 +218,23 @@ public enum BioScanAnalytics {
         }
     }
 
+    /// 上报已捕获的错误；遵循与普通事件相同的环境和隐私过滤。
+    public static func captureException(_ error: Error, properties: [String: Any] = [:]) {
+        guard configured, !analyticsDisabled else { return }
+        let nsError = error as NSError
+        var details = properties
+        details["error_domain"] = nsError.domain
+        details["error_code"] = nsError.code
+        PostHogSDK.shared.captureException(error, properties: sanitize(details))
+    }
+
     private static func canonicalEventName(_ name: String) -> String {
         switch name {
+        case "scan_entry_tap": BioScanBehaviorEvent.recognitionEntrySelected
+        case "crop_confirm", "crop_confirmed": BioScanBehaviorEvent.recognitionCropConfirmed
+        case "crop_cancel", "crop_cancelled": BioScanBehaviorEvent.recognitionCropCancelled
+        case "favorite_changed", "favorite_add", "favorite_remove": BioScanBehaviorEvent.resultFavoriteChanged
+        case "result_share_tap": BioScanBehaviorEvent.resultShareRequested
         case "paywall_show", "paywall_shown": "paywall_viewed"
         case "paywall_product_selected", "paywall_product_select": "product_selected"
         case "purchase_succeeded", "purchase_success": "purchase_success"

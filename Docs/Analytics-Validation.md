@@ -28,7 +28,9 @@ MrRock、iNature、NatureEar、MrBird、MrFish、MrMushroom 配置 RevenueCat �
 
 ## 构建依赖
 
-本轮本地验证使用 `BIOSCAN_POD_SOURCE=local pod install`，六个 App 的 Podfile.lock 因此记录本地共享库路径。Podfile 的远程分支仍指向既有 `0.1.11`；后续发布时需先提交并发布包含本轮改动的共享库版本，再更新各 App 的远程引用和 lockfile。本轮没有发布共享库或 App。
+最初本地构建通过 `BIOSCAN_POD_SOURCE=local pod install` 验证。随后按用户要求将共享层源码提交为 `a2aa79d2a50e23ccb3b00cb73ca4ed7d152cfb33` 并推送至 main；六款 App 的 Podfile 远程分支和 lockfile 均固定到该 commit，已执行 `BIOSCAN_POD_SOURCE=remote pod install`。下载的 BioScanAnalytics Swift 源码与本地测试源码 SHA256 一致，lockfile 不再包含本地路径。
+
+此处采用不可变 Git commit 引用交付修复，没有创建新的版本 tag、GitHub Release 或提交 App 商店发布。后续若改用版本 tag，应确保 tag 包含上述修复，再同步更新引用和 lockfile。
 
 ## 验证记录
 

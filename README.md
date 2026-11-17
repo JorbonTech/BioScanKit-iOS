@@ -9,6 +9,7 @@ Native SwiftUI components shared by the BioScan app family, distributed through 
 - `BioScanCapture`: camera composition, crop editing, image processing, and recognition flows.
 - `BioScanPaywall`: paywall UI, billing abstractions, credit ledger, and purchase recovery.
 - `BioScanCloudSync`: cloud-favorite snapshots and synchronization.
+- `BioScanAnalytics`: shared event names, purchase correlation, and PostHog error tracking; see [event conventions](ANALYTICS.md).
 - `BioScanKit`: aggregate product containing all modules.
 
 Host apps own recognition engines, navigation, analytics, credentials, product identifiers, persistence, and branded assets.

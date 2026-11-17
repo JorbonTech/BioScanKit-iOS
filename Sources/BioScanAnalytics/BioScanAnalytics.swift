@@ -133,6 +133,9 @@ public enum BioScanAnalytics {
         }
 
         var protectedProperties: [String: Any] = [
+            "$app_namespace": Bundle.main.bundleIdentifier ?? configuration.appID,
+            "$app_name": configuration.appName,
+            "$app_version": Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "unknown",
             "app_id": configuration.appID,
             "app_name": configuration.appName,
             "bundle_id": Bundle.main.bundleIdentifier ?? "unknown",
@@ -199,6 +202,12 @@ public enum BioScanAnalytics {
         }
         guard let properties = sanitize(normalizedProperties, eventName: canonicalName) else { return }
         PostHogSDK.shared.capture(canonicalName, properties: properties)
+        // 已捕获的识别错误也进入 Error Tracking；取消和额度拦截有独立事件。
+        if canonicalName == "recognition_failed" {
+            let domain = properties["error_domain"] as? String ?? "BioScanRecognition"
+            let code = (properties["error_code"] as? NSNumber)?.intValue ?? -1
+            captureException(NSError(domain: domain, code: code), properties: properties)
+        }
         if eventName == "sound_listen_start" {
             PostHogSDK.shared.capture(BioScanBehaviorEvent.recognitionEntrySelected,
                                       properties: properties.merging(["recognition_mode": "sound"]) { _, new in new })
@@ -302,6 +311,10 @@ public enum BioScanAnalytics {
             normalized["entitlement_state"] = tier
         }
         if let eventName {
+            // 付费页桥接已管理独立会话，必须保留它的 ID，避免跨页面或异步结果串单。
+            if normalized["purchase_attempt_id"] != nil || normalized["paywall_session_id"] != nil {
+                return jsonProperties(normalized)
+            }
             lock.lock()
             defer { lock.unlock() }
             switch eventName {
@@ -316,11 +329,11 @@ public enum BioScanAnalytics {
                 if paywallSessionID == nil { paywallSessionID = UUID().uuidString.lowercased() }
                 purchaseAttemptID = UUID().uuidString.lowercased()
             case "purchase_success":
-                paywallCompletedSuccessfully = true
+                if purchaseAttemptID != nil { paywallCompletedSuccessfully = true }
             default:
                 break
             }
-            if eventName == "purchase_success", purchaseAttemptID == nil {
+            if ["purchase_success", "purchase_cancelled", "purchase_failed", "purchase_pending"].contains(eventName), purchaseAttemptID == nil {
                 return nil
             }
             let isPaywallEvent = (eventName.hasPrefix("paywall_") && eventName != "paywall_requested")
@@ -342,7 +355,7 @@ public enum BioScanAnalytics {
                     normalized["did_convert"] = paywallCompletedSuccessfully
                 }
             }
-            if ["paywall_dismissed", "purchase_success", "purchase_cancelled", "purchase_failed"].contains(eventName) {
+            if ["paywall_dismissed", "purchase_success", "purchase_cancelled", "purchase_failed", "purchase_pending"].contains(eventName) {
                 if eventName != "purchase_success" || purchaseAttemptID != nil {
                     purchaseAttemptID = nil
                 }
@@ -353,7 +366,11 @@ public enum BioScanAnalytics {
                 paywallCompletedSuccessfully = false
             }
         }
-        return normalized.reduce(into: [String: Any]()) { result, item in
+        return jsonProperties(normalized)
+    }
+
+    private static func jsonProperties(_ properties: [String: Any]) -> [String: Any] {
+        properties.reduce(into: [String: Any]()) { result, item in
             guard JSONSerialization.isValidJSONObject([item.key: item.value]) else { return }
             result[item.key] = item.value
         }

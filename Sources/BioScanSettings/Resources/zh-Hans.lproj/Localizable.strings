@@ -106,3 +106,15 @@
 "related.mrrock.detail" = "MrRock · 石头与矿物识别";
 "related.inature.action" = "识别整个场景";
 "related.inature.detail" = "iNature · 植物、昆虫与野生动物";
+
+/* Settings sections and rows shared by every app. */
+"App Language" = "应用语言";
+"DATA" = "数据";
+"Emergency Response" = "应急处理";
+"Help us improve iNature" = "帮助我们改进 iNature";
+"LANGUAGE PACKS" = "语言包";
+"Language Packs" = "语言包";
+"Outdoor Safety Guide" = "户外安全指南";
+"Rate iNature" = "给 iNature 评分";
+"TOOLS" = "工具";
+"Works offline" = "离线可用";

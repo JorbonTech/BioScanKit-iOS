@@ -106,3 +106,15 @@
 "related.mrrock.detail" = "MrRock · riconoscimento di rocce";
 "related.inature.action" = "Identifica l'intera scena";
 "related.inature.detail" = "iNature · piante, insetti e fauna";
+
+/* Settings sections and rows shared by every app. */
+"App Language" = "Lingua dell’app";
+"DATA" = "DATI";
+"Emergency Response" = "Risposta di emergenza";
+"Help us improve iNature" = "Aiutaci a migliorare iNature";
+"LANGUAGE PACKS" = "PACCHETTI LINGUA";
+"Language Packs" = "Pacchetti lingua";
+"Outdoor Safety Guide" = "Guida alla sicurezza all’aperto";
+"Rate iNature" = "Valuta iNature";
+"TOOLS" = "STRUMENTI";
+"Works offline" = "Funziona offline";

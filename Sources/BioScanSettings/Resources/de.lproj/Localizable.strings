@@ -106,3 +106,15 @@
 "related.mrrock.detail" = "MrRock · Stein- und Mineralbestimmung";
 "related.inature.action" = "Die ganze Szene bestimmen";
 "related.inature.detail" = "iNature · Pflanzen, Insekten und Wildtiere";
+
+/* Settings sections and rows shared by every app. */
+"App Language" = "App-Sprache";
+"DATA" = "DATEN";
+"Emergency Response" = "Notfallhilfe";
+"Help us improve iNature" = "Hilf uns, iNature zu verbessern";
+"LANGUAGE PACKS" = "SPRACHPAKETE";
+"Language Packs" = "Sprachpakete";
+"Outdoor Safety Guide" = "Sicherheitsratgeber für draußen";
+"Rate iNature" = "iNature bewerten";
+"TOOLS" = "WERKZEUGE";
+"Works offline" = "Offline verfügbar";

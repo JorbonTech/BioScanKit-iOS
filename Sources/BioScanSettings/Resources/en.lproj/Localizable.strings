@@ -106,3 +106,15 @@
 "related.mrrock.detail" = "MrRock · stone and mineral ID";
 "related.inature.action" = "Identify the whole scene";
 "related.inature.detail" = "iNature · plants, insects and wildlife";
+
+/* Settings sections and rows shared by every app. */
+"App Language" = "App Language";
+"DATA" = "DATA";
+"Emergency Response" = "Emergency Response";
+"Help us improve iNature" = "Help us improve iNature";
+"LANGUAGE PACKS" = "LANGUAGE PACKS";
+"Language Packs" = "Language Packs";
+"Outdoor Safety Guide" = "Outdoor Safety Guide";
+"Rate iNature" = "Rate iNature";
+"TOOLS" = "TOOLS";
+"Works offline" = "Works offline";

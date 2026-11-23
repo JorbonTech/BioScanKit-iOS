@@ -106,3 +106,15 @@
 "related.mrrock.detail" = "MrRock · 石・鉱物の識別";
 "related.inature.action" = "風景ごと識別する";
 "related.inature.detail" = "iNature · 植物・昆虫・野生動物";
+
+/* Settings sections and rows shared by every app. */
+"App Language" = "アプリの言語";
+"DATA" = "データ";
+"Emergency Response" = "応急対応";
+"Help us improve iNature" = "iNature の改善にご協力ください";
+"LANGUAGE PACKS" = "言語パック";
+"Language Packs" = "言語パック";
+"Outdoor Safety Guide" = "野外安全ガイド";
+"Rate iNature" = "iNature を評価";
+"TOOLS" = "ツール";
+"Works offline" = "オフラインで利用可";

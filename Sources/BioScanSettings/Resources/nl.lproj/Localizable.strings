@@ -106,3 +106,15 @@
 "related.mrrock.detail" = "MrRock · steen- en mineraalherkenning";
 "related.inature.action" = "De hele scène determineren";
 "related.inature.detail" = "iNature · planten, insecten en wilde dieren";
+
+/* Settings sections and rows shared by every app. */
+"App Language" = "App-taal";
+"DATA" = "GEGEVENS";
+"Emergency Response" = "Noodhulp";
+"Help us improve iNature" = "Help ons iNature te verbeteren";
+"LANGUAGE PACKS" = "TAALPAKKETTEN";
+"Language Packs" = "Taalpakketten";
+"Outdoor Safety Guide" = "Veiligheidshandleiding buiten";
+"Rate iNature" = "Beoordeel iNature";
+"TOOLS" = "HULPMIDDELEN";
+"Works offline" = "Werkt offline";

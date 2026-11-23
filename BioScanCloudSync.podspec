@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'BioScanCloudSync'
-  s.version = '0.1.11'
+  s.version = '0.1.12'
   s.summary = 'Shared CloudKit synchronization for BioScan apps.'
   s.homepage = 'https://github.com/JorbonTech/BioScanKit-iOS'
   s.license = { :type => 'Proprietary' }

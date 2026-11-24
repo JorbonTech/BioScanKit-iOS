@@ -159,7 +159,7 @@ public struct SettingsCloudFavoritesSectionView: View {
 
     private var localizedDateStyle: Date.FormatStyle {
         Date.FormatStyle(date: .abbreviated, time: .shortened)
-            .locale(.autoupdatingCurrent)
+            .locale(BioScanLocalization.shared.locale)
     }
 }
 

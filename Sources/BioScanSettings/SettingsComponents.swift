@@ -30,12 +30,24 @@ public struct SettingsSectionView<Content: View>: View {
 public struct SettingsSectionTitleView: View {
     private let title: String
 
+    /// Brand names keep their own casing when the section title is uppercased,
+    /// so "iCloud 同步" does not become "ICLOUD 同步".
+    private static let preservedTerms = ["iCloud", "iNature", "iPhone", "iPad", "iOS"]
+
+    static func displayTitle(_ title: String) -> String {
+        var value = title.uppercased(with: BioScanLocalization.shared.locale)
+        for term in preservedTerms {
+            value = value.replacingOccurrences(of: term.uppercased(), with: term)
+        }
+        return value
+    }
+
     public init(_ title: String) {
         self.title = title
     }
 
     public var body: some View {
-        Text(BioScanSettingsL10n.string(title).uppercased())
+        Text(Self.displayTitle(BioScanSettingsL10n.string(title)))
             .font(.system(size: 12, weight: .bold, design: .rounded))
             .foregroundStyle(.secondary)
     }

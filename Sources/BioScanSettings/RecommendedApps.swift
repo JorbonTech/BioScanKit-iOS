@@ -1,3 +1,4 @@
+import BioScanDesign
 import Foundation
 
 public struct RecommendedAppsDocument: Decodable, Sendable {
@@ -127,8 +128,14 @@ public enum RecommendedAppsLoader {
     }
 
     public static func mainAppPreferredLanguages() -> [String] {
-        var languages = Bundle.main.preferredLocalizations.filter {
-            !$0.isEmpty && $0 != "Base"
+        // The in-app language choice wins over the device language, so the
+        // recommended apps follow the language the user picked in settings.
+        var languages: [String] = []
+        let selected = BioScanLocalization.shared.languageIdentifier
+        if !selected.isEmpty { languages.append(selected) }
+        for language in Bundle.main.preferredLocalizations
+        where !language.isEmpty && language != "Base" && !languages.contains(language) {
+            languages.append(language)
         }
         for language in Locale.preferredLanguages where !languages.contains(language) {
             languages.append(language)

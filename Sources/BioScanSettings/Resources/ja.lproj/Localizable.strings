@@ -118,3 +118,8 @@
 "Rate iNature" = "iNature を評価";
 "TOOLS" = "ツール";
 "Works offline" = "オフラインで利用可";
+
+/* Default copy used by the shared library and language screens. */
+"Data" = "データ";
+"AVAILABLE LANGUAGES" = "利用可能な言語";
+"Changes apply immediately." = "変更はすぐに反映されます。";

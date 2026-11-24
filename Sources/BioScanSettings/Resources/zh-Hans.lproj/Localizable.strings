@@ -118,3 +118,8 @@
 "Rate iNature" = "给 iNature 评分";
 "TOOLS" = "工具";
 "Works offline" = "离线可用";
+
+/* Default copy used by the shared library and language screens. */
+"Data" = "数据";
+"AVAILABLE LANGUAGES" = "可用语言";
+"Changes apply immediately." = "切换立即生效。";

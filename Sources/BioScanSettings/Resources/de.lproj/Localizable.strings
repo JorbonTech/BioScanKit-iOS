@@ -118,3 +118,8 @@
 "Rate iNature" = "iNature bewerten";
 "TOOLS" = "WERKZEUGE";
 "Works offline" = "Offline verfügbar";
+
+/* Default copy used by the shared library and language screens. */
+"Data" = "Daten";
+"AVAILABLE LANGUAGES" = "VERFÜGBARE SPRACHEN";
+"Changes apply immediately." = "Änderungen werden sofort übernommen.";

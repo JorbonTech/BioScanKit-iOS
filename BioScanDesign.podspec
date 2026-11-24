@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'BioScanDesign'
-  s.version = '0.1.12'
+  s.version = '0.1.13'
   s.summary = 'Shared design system for BioScan apps.'
   s.homepage = 'https://github.com/JorbonTech/BioScanKit-iOS'
   s.license = { :type => 'Proprietary' }
